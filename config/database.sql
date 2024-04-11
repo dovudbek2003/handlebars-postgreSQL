@@ -1,0 +1,7 @@
+CREATE DATABASE user_list;
+
+CREATE TABLE user_info(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(80) NOT NULL,
+    age NUMERIC NOT NULL
+)

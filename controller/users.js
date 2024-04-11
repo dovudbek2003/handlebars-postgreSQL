@@ -13,11 +13,10 @@ const getAddUsersPage = (req, res) => {
 // Route     /users
 // Method    POST
 // Descr     Add new user
-const addNewUser = (req, res) => {
-    const id = generatedId()
+const addNewUser = async (req, res) => {
     const body = req.body
-    const users = new User(id, body.username, body.age)
-    users.save()
+    const users = new User(body.username, body.age)
+    await users.save()
 
     res.redirect('/')
 }
@@ -25,9 +24,9 @@ const addNewUser = (req, res) => {
 // Route     /:id
 // Method    GET
 // Descr     Get user page by id
-const getUserPageById = (req, res) => {
+const getUserPageById = async (req, res) => {
     const id = req.params.id
-    const user = User.findById(id)
+    const user = await User.findById(id)
     res.render('user-page', {
         title: 'user',
         user
@@ -37,18 +36,18 @@ const getUserPageById = (req, res) => {
 // Route     /delete-user/:id
 // Method    GET
 // Descr     Deleted user
-const deleteUserById = (req, res) => {
+const deleteUserById = async (req, res) => {
     const id = req.params.id
-    User.remove(id)
+    await User.remove(id)
     res.redirect('/')
 }
 
 // Route     /update-user/:id
 // Method    GET
 // Descr     update form page
-const getUpdateUserById = (req, res) => {
+const getUpdateUserById = async (req, res) => {
     const id = req.params.id
-    const user = User.findById(id)
+    const user = await User.findById(id)
     res.render('update-users', {
         title: 'update user',
         user
@@ -58,11 +57,11 @@ const getUpdateUserById = (req, res) => {
 // Route     /update-user/:id
 // Method    POST
 // Descr     updated user
-const updateUserById = (req, res) => {
+const updateUserById = async (req, res) => {
     const id = req.params.id,
         body = req.body;
 
-    User.update(id, body)
+    await User.update(id, body)
     res.redirect('/')
 }
 
